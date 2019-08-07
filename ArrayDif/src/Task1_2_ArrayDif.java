@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class ArrayDif {
+public class Task1_2_ArrayDif {
     public static void main(String[] args) {
         String[] arr1 = {"Alex", "Dima", "Kate", "Galina", "Ivan"};
         String[] arr2 = {"Dima", "Ivan", "Kate"};
