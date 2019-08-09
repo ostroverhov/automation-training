@@ -4,8 +4,7 @@ import java.util.*;
 public class Task3WorkWithTextFile {
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-        System.out.print("Input file name: ");
-        String pathToTheFile = in.nextLine();   // path = "/home/ITRANSITION.CORP/v.ostroverhov/Documents/doc1Task1.txt";
+        String pathToTheFile = "Task1/src/doc1Task1.txt";
         System.out.println("Input number of strings to select: ");
         String toSelectStr = in.next();
         int toSelect;
