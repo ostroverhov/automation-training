@@ -1,0 +1,5 @@
+Rating L
+C Expected 5
+5 Hd 9 Hd LT
+2 Hd STB/Other LT
+C C Expected 5

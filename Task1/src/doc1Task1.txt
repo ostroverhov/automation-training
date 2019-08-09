@@ -1,0 +1,24 @@
+﻿
+ Rating
+ Product Date
+7 All GTD
+C C Index LM 3
+10 Hd STB/Other
+ST POL Rating L
+C 4 Hd
+TTd LT
+Rating L
+C C LM 5
+3 Hd
+LT GTD
+Rating L
+C C LM 1
+All
+GTD Rating L
+C C
+ST POL
+Rating L
+C C Expected 1
+11 Hd TTd LT
+POL Rating L
+C
