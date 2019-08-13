@@ -5,21 +5,21 @@ import java.util.List;
 public class Task1SearchLastChange {
     public static void main(String[] args) {
         String name = "doc";
-        File dir = new File("Task1/src/");
-
+        String path = "Task1/src/";
+        File dir = new File(path);
         File[] dirList = dir.listFiles();
-        File lastModifiedFile = dirList[0];
-
-        for (File file : dirList) {
-            if (file.getName().startsWith(name)) {
-                if (file.lastModified() >= lastModifiedFile.lastModified()) {
-                    lastModifiedFile = file;
+        if (dirList[0]!=null) {
+            ArrayList<File> rightFiles = new ArrayList<>();
+            for (File file : dirList) {
+                if (file.getName().startsWith(name)) {
+                    rightFiles.add(file);
                 }
             }
-        }
-        for (File file : dirList) {
-            if (file.getName().startsWith(name)) {
-                if (file.lastModified() + 10000 >= lastModifiedFile.lastModified()) {
+
+            File lastModifiedFile = rightFiles.get(0);
+            int time = 10000;
+            for (File file : rightFiles) {
+                if (file.lastModified() + time >= lastModifiedFile.lastModified()) {
                     System.out.println(file);
                 }
             }
