@@ -1,0 +1,171 @@
+ID: BR001
+
+Summary: Class File, Constructor File (), create file without name
+
+Steps: create file
+        new File(“”, content)
+
+Actual: Create file
+
+Expected: Exception
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR002
+
+Summary: Class File, Constructor File (), create file without extension
+
+Steps: create file
+        new File(“Test.”, content)
+
+Actual: Create file
+
+Expected: Exception
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR003
+
+Summary: Class File, Constructor File (), create file with wrong extension
+
+Steps: create file without extension
+        new File(“Test.”, content)
+
+Actual: Test
+
+Expected: " "
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR004
+
+Summary: Class File, Constructor File (), create file wrong size
+
+Steps: create file with odd length
+        new File(“Test.txt”, test contentx)
+
+Actual: 6
+
+Expected: 7
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR005
+
+Summary: Class File, Constructor File (), constructor have wrong type variable size
+
+Steps: create file with odd length
+        new File(“Test.txt”, test contentx)
+
+Actual: double
+
+Expected: int
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR101
+
+Summary: Class FileStorage, Constructor FileStorage (-1), constructor create fileStorage with
+        negative size
+
+Steps: create fileStorage with negative size
+        new FileStorage(-1)
+
+Actual: create fileStorage
+
+Expected: null
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR102
+
+Summary: Class FileStorage, Constructor FileStorage (-1), constructor create fileStorage with
+        negative size without IllegalArgumentException
+
+Steps: create fileStorage with negative size
+        new FileStorage(-1)
+
+Actual: create fileStorage
+
+Expected: IllegalArgumentException
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR103
+
+Summary: Class FileStorage, method getAvailableSize, return negative availableSize without Exception
+
+Steps:  1.create fileStorage with negative size
+        FileStorage fs = new FileStorage(-101)
+        2.use method
+        fs.getAvailableSize
+
+Actual: -1
+
+Expected: IllegalArgumentException
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR104
+
+Summary: Class FileStorage, method getMaxSize, return negative maxSize without Exception
+
+Steps:  1.create fileStorage with negative size
+        FileStorage fs = new FileStorage(-1)
+        2.use method
+        fs.getMaxSize
+
+Actual: -1
+
+Expected: IllegalArgumentException
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR105
+
+Summary: Class FileStorage, method write, write new file in case low size fileStorage
+
+Steps:  1.create fileStorage with low size
+        FileStorage fs = new FileStorage(-1)
+        2.use method
+        fs.write(file)
+
+Actual: true
+
+Expected: false
+
+Status: -
+
+-----------------------------------------------------------------------
+
+ID: BR106
+
+Summary: Class FileStorage, Constructor FileStorage (200), constructor create fileStorage with
+        availableSize higher than MaxSize when create with positive size
+
+Steps:  1.create fileStorage with positive size
+        FileStorage fs = new FileStorage(200)
+
+Actual: False
+
+Expected: true
+
+Status: -
