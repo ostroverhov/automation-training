@@ -2,210 +2,172 @@ import exception.FileAlreadyExistsException;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class FileStorageTest {
 
     FileStorage fileStorage;
-    FileStorage smallFileStorage;
-    ArrayList<File> testFiles;
     String content = "test content";
-
-    @BeforeMethod
-    public void SetUp() throws NoSuchFieldException, IllegalAccessException {
-        FileStorage fs = new FileStorage();
-        FileStorage smallFS = new FileStorage(-90);
-        ArrayList<File> tFiles = new ArrayList<>();
-
-        tFiles.add(new File("Test1.txt", content));
-        tFiles.add(new File("Test2.txt", content));
-        tFiles.add(new File("Test3.txt", content));
-
-        Field field = fs.getClass().getDeclaredField("files");
-        field.setAccessible(true);
-        field.set(fs, tFiles);
-        field.set(smallFS, tFiles);
-
-        fileStorage = fs;
-        smallFileStorage = smallFS;
-        testFiles = tFiles;
-    }
-
-    @DataProvider(name = "testFileProviderWriteSmallFileStorage")
-    public Object[][] testFileProviderWrite() {
-        return new Object[][]{
-                {fileStorage, new File("Test4.txt", content), true},
-                {smallFileStorage, new File("Test4.txt", content), false}
-        };
-    }
+    String maxContent = "11111111111111111111111111111111111111111111111111111111111111111111111" +
+            "11111111111111111111111111111111111111111111111111111111111111111111111" +
+            "11111111111111111111111111111111111111111111111111111111111111111111111" +
+            "11111111111111111111111111111111111111111111111111111111111111111111111" +
+            "11111111111111111111111111111111111111111111111111111111111111111111111";
+    String filename = "Test.txt";
 
     @DataProvider(name = "testFileStorageExistDelete")
     public Object[][] testFileStorageExistDelete() {
         return new Object[][]{
-                {"Test1.txt", true},
-                {"Test4.txt", false}
+                {filename, filename, true},
+                {filename, filename + "x", false}
         };
     }
 
-    @DataProvider(name = "testFileStorageConstructorAvailableMaxSize")
-    public Object[][] testFileStorageConstructorAvailableMaxSize() {
+    @DataProvider(name = "testFileStorageAvailableMaxSize")
+    public Object[][] testFileStorageAvailableMaxSize() {
         return new Object[][]{
                 {new FileStorage()},
                 {new FileStorage(200)}
         };
     }
 
-    @Test(dataProvider = "testFileStorageConstructorAvailableMaxSize")
-    public void testConstructor(FileStorage fileStorage) {
-        Assert.assertNotNull(fileStorage);
+    @DataProvider(name = "testFileStorageConstructor")
+    public Object[][] testFileStorageConstructor() {
+        return new Object[][]{
+                {new FileStorage(), 100, 100},
+                {new FileStorage(200), 200, 200}
+        };
+    }
+
+    @Test(dataProvider = "testFileStorageConstructor")
+    public void testConstructorMaxSize(FileStorage fileStorage, int testAvailableSize, int testMaxSize) throws NoSuchFieldException, IllegalAccessException {
+        int maxSize = ReflectionForTest.getMaxSizeFileStorage(fileStorage);
+        Assert.assertEquals(maxSize, testMaxSize, "wrong maxSize in constructor fileStorage");
+    }
+
+    @Test(dataProvider = "testFileStorageConstructor")
+    public void testConstructorAvailableSize(FileStorage fileStorage, int testAvailableSize, int testMaxSize) throws NoSuchFieldException, IllegalAccessException {
+        int availableSize = ReflectionForTest.getAvailableSizeFileStorage(fileStorage);
+        Assert.assertEquals(availableSize, testAvailableSize, "wrong availableSize in constructor fileStorage");
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testConstructorCreateWithNegativeSize() {
+        new FileStorage(-1);
     }
 
     @Test
-    public void testConstructorCreate() {
-        Assert.assertNull(new FileStorage(-1));
-    }
-
-    @Test
-    public void testConstructorException() {
-        try {
-            new FileStorage(-1);
-            Assert.fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException thrown) {
-            Assert.assertNotEquals("", thrown.getMessage());
-        }
-    }
-
-    @Test
-    public void testWrite() throws FileAlreadyExistsException {
-        File file = new File("Test4.txt", content);
+    public void testWrite() throws FileAlreadyExistsException, NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File("Test1.txt", content));
+        files.add(new File("Test2.txt", content));
+        files.add(new File("Test3.txt", content));
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        File file = new File(filename, content);
         fileStorage.write(file);
-        ArrayList<File> testFiles = new ArrayList<>();
-        File testFile = null;
-        try {
-            Field field = fileStorage.getClass().getDeclaredField("files");
-            field.setAccessible(true);
-            testFiles = (ArrayList<File>) field.get(fileStorage);
-            testFile = testFiles.get(3);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(testFile, file);
-    }
 
-    @Test(dataProvider = "testFileProviderWriteSmallFileStorage")
-    public void testWriteSmallFileStorage(FileStorage fileStorage, File file, Object res) throws FileAlreadyExistsException {
-        Assert.assertEquals(fileStorage.write(file), res);
+        ArrayList<File> testFiles = ReflectionForTest.getFilesFromFileStorage(fileStorage);
+        File testFile = testFiles.get(3);
+
+        String testFileName = ReflectionForTest.getFileName(testFile);
+        String testFileContent = ReflectionForTest.getFileContent(testFile);
+
+        Assert.assertEquals(testFileName, filename, "filename incorrect in written file");
+        Assert.assertEquals(testFileContent, content, "content incorrect in written file");
     }
 
     @Test
-    public void testWriteException() {
-        try {
-            fileStorage.write(testFiles.get(0));
-            Assert.fail("Expected FileAlreadyExistsException");
-        } catch (FileAlreadyExistsException thrown) {
-            Assert.assertNotEquals("", thrown.getMessage());
-        }
+    public void testWriteDeficientFileStorage() throws FileAlreadyExistsException {
+        FileStorage fileStorage = new FileStorage();
+        File file = new File(filename, maxContent);
+        Assert.assertFalse(fileStorage.write(file));
+    }
+
+    @Test(expectedExceptions = FileAlreadyExistsException.class)
+    public void testWriteException() throws NoSuchFieldException, IllegalAccessException, FileAlreadyExistsException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File(filename, content));
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        fileStorage.write(files.get(0));
     }
 
     @Test(dataProvider = "testFileStorageExistDelete")
-    public void testIsExists(String filename, boolean res) {
-        Assert.assertEquals(fileStorage.isExists(filename), res);
+    public void testIsExists(String filename, String filenameToCheck, boolean res) throws NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        File file = new File(filename, content);
+        files.add(file);
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        Assert.assertEquals(fileStorage.isExists(filenameToCheck), res, "method isExist doesn't find file");
     }
 
     @Test(dataProvider = "testFileStorageExistDelete")
-    public void testDelete(String filename, boolean res) {
-        Assert.assertEquals(fileStorage.delete(filename), res);
+    public void testDelete(String filename, String filenameToDelete, boolean res) throws NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        File file = new File(filename, content);
+        files.add(file);
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        Assert.assertEquals(fileStorage.delete(filenameToDelete), res, "");
     }
 
     @Test
-    public void testGetFiles() {
-        Assert.assertEquals(fileStorage.getFiles(), testFiles);
+    public void testSizeAfterDelete() throws NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        File file = new File(filename, content);
+        files.add(file);
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        int sizeBefore = ReflectionForTest.getAvailableSizeFileStorage(fileStorage);
+        fileStorage.delete(filename);
+        int sizeAfter = ReflectionForTest.getAvailableSizeFileStorage(fileStorage);
+        Assert.assertEquals(sizeBefore - (int) ReflectionForTest.getFileSize(file), sizeAfter, "size filestorage doesn't change after delete file");
+    }
+
+    @Test
+    public void testGetFiles() throws NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        files.add(new File("Test1.txt", content));
+        files.add(new File("Test2.txt", content));
+        files.add(new File("Test3.txt", content));
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        ArrayList<File> testFiles;
+        testFiles = ReflectionForTest.getFilesFromFileStorage(fileStorage);
+        Assert.assertEquals(fileStorage.getFiles(), testFiles, "method getFiles doesn't return file");
     }
 
     @Test
     public void testGetFile() throws NoSuchFieldException, IllegalAccessException {
-        String filename = "Test.txt";
-        FileStorage fs = new FileStorage();
-        ArrayList<File> tFiles = new ArrayList<>();
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
         File file = new File(filename, content);
-        tFiles.add(file);
-
-        Field field = fs.getClass().getDeclaredField("files");
-        field.setAccessible(true);
-        field.set(fs, tFiles);
-
-        Assert.assertEquals(fs.getFile(filename), file);
-        tFiles.remove(file);
-        Assert.assertNull(fs.getFile(filename));
-    }
-
-    @Test(dataProvider = "testFileStorageConstructorAvailableMaxSize")
-    public void testGetAvailableSize(FileStorage fileStorage) {
-        int testAvailableSize = 0;
-        try {
-            Field field = fileStorage.getClass().getDeclaredField("availableSize");
-            field.setAccessible(true);
-            testAvailableSize = field.getInt(fileStorage);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(fileStorage.getAvailableSize(), testAvailableSize);
+        files.add(file);
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        Assert.assertEquals(fileStorage.getFile(filename), file, "method getFile return wrong file");
     }
 
     @Test
-    public void testGetAvailableException() {
-        try {
-            FileStorage fileStorage = new FileStorage(-101);
-            fileStorage.getAvailableSize();
-            System.out.println(fileStorage.getAvailableSize());
-            Assert.fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException thrown) {
-            Assert.assertNotEquals("", thrown.getMessage());
-        }
+    public void testGetFileNotExist() throws NoSuchFieldException, IllegalAccessException {
+        FileStorage fileStorage = new FileStorage();
+        ArrayList<File> files = new ArrayList<>();
+        File file = new File(filename, content);
+        files.add(file);
+        ReflectionForTest.addFilesToFileStorage(fileStorage, files);
+        Assert.assertNull(fileStorage.getFile(filename + "x"), "method getFile doesn't return null when file doesn't exist");
     }
 
-    @Test(dataProvider = "testFileStorageConstructorAvailableMaxSize")
-    public void testGetMaxSize(FileStorage fileStorage) {
-        int testMaxSize = 0;
-        try {
-            Field field = fileStorage.getClass().getDeclaredField("maxSize");
-            field.setAccessible(true);
-            testMaxSize = field.getInt(fileStorage);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(fileStorage.getMaxSize(), testMaxSize);
+    @Test(dataProvider = "testFileStorageAvailableMaxSize")
+    public void testGetAvailableSize(FileStorage fileStorage) throws NoSuchFieldException, IllegalAccessException {
+        int testAvailableSize = ReflectionForTest.getAvailableSizeFileStorage(fileStorage);
+        Assert.assertEquals(fileStorage.getAvailableSize(), testAvailableSize, "method getAvailableSize return wrong availableSize");
     }
 
-    @Test
-    public void testGetMaxSizeException() {
-        try {
-            FileStorage fileStorage = new FileStorage(-1);
-            fileStorage.getMaxSize();
-            Assert.fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException thrown) {
-            Assert.assertNotEquals("", thrown.getMessage());
-        }
-    }
-
-    @Test(dataProvider = "testFileStorageConstructorAvailableMaxSize")
-    public void testCompareAvailableMaxSize(FileStorage fileStorage) {
-        int testMaxSize = 0;
-        int testAvailableSize = 0;
-        boolean res = true;
-        try {
-            Field fieldMax = fileStorage.getClass().getDeclaredField("maxSize");
-            fieldMax.setAccessible(true);
-            testMaxSize = fieldMax.getInt(fileStorage);
-            Field fieldAvailable = fileStorage.getClass().getDeclaredField("availableSize");
-            fieldAvailable.setAccessible(true);
-            testAvailableSize = fieldAvailable.getInt(fileStorage);
-            if (testAvailableSize > testMaxSize)
-                res = false;
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(res);
+    @Test(dataProvider = "testFileStorageAvailableMaxSize")
+    public void testGetMaxSize(FileStorage fileStorage) throws NoSuchFieldException, IllegalAccessException {
+        int testMaxSize = ReflectionForTest.getMaxSizeFileStorage(fileStorage);
+        Assert.assertEquals(fileStorage.getMaxSize(), testMaxSize, "method getMaxSize return wrong maxSize");
     }
 }
