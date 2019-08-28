@@ -14,16 +14,20 @@ public class BrowserSingleton {
     private BrowserSingleton() {
     }
 
-    public static WebDriver getInstance(String browser) {
+    public static WebDriver getInstance(String browser) throws IllegalBrowserNameException {
         if (driver == null) {
-            if (browser.equals("chrome")) {
-                WebDriverManager.getInstance(CHROME).setup();
-                driver = new ChromeDriver();
-            } else if (browser.equals("firefox")) {
-                WebDriverManager.getInstance(FIREFOX).setup();
-                driver = new FirefoxDriver();
+            switch (browser){
+                case "chrome":
+                    WebDriverManager.getInstance(CHROME).setup();
+                    driver = new ChromeDriver();
+                    break;
+                case "firefox":
+                    WebDriverManager.getInstance(FIREFOX).setup();
+                    driver = new FirefoxDriver();
+                    break;
+                default:
+                    throw new IllegalBrowserNameException();
             }
-            else System.out.println("выберите браузер: chrome / firefox");
         }
         return driver;
     }

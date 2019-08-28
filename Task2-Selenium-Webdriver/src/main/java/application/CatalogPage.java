@@ -6,28 +6,43 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CatalogPage {
     WebDriver driver;
-    List<String> catalogTop = new ArrayList<>();
 
-    By menuTopLocator = By.xpath("//span[@class='n-w-tab__control-caption']");
+    By menuPopularCategoryLocator = By.xpath("//div[@class='n-w-tabs__horizontal-tabs']//div[@class='n-w-tab n-w-tab_type_navigation-menu'] ");
+    By logoToMainPageLocator = By.xpath("//a[@class='logo logo_type_link logo_part_market']");
 
     public CatalogPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public List<String> getArrayCatalog() {
+    public List<WebElement> getArrayPopularCategory() {
+        List<WebElement> catalogPopularCategory = driver.findElements(menuPopularCategoryLocator);
+        return catalogPopularCategory;
+    }
 
-        List<WebElement> catalog = driver.findElements(menuTopLocator);
+    public void clickRandomCategory(List<WebElement> catalog, int random) {
+        catalog.get(random).click();
+    }
 
-        for (WebElement w : catalog) {
-            w.getText();
-            System.out.println(w.getText());
-            catalogTop.add(w.getText());
+    public String getNameRandomcategory(List<WebElement> catalog, int random) {
+        return catalog.get(random).getText().toLowerCase();
+    }
+
+    public void clickMainPageLogin() {
+        driver.findElement(logoToMainPageLocator).click();
+    }
+
+    public List<String> getListPopularCategory() {
+        List<WebElement> arrayPopularCategory = driver.findElements(menuPopularCategoryLocator);
+        List<String> listPopularCategory = new ArrayList<>();
+        for (WebElement w : arrayPopularCategory) {
+            if (w.isDisplayed()) {
+                listPopularCategory.add(w.getText());
+            }
         }
-
-
-        return catalogTop;
+        return listPopularCategory;
     }
 }
