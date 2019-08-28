@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Writer {
-    List<String> category = new ArrayList<String>();
 
     public static void writeCategoryCSV(List<String> category) throws IOException {
         FileWriter fileWriter = new FileWriter("category.csv");
@@ -15,5 +14,4 @@ public class Writer {
         }
         fileWriter.close();
     }
-
 }
