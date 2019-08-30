@@ -1,18 +1,12 @@
 package browser;
 
 import framework.Reader;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class Browser {
-
 
     public Browser() {
     }
@@ -23,8 +17,8 @@ public class Browser {
         }
     }
 
-    public static WebDriver initBrowser() throws IOException, IllegalBrowserNameException {
-        return BrowserSingleton.getInstance(Reader.getStringParametr("browser"));
+    public static WebDriver initBrowser() {
+        return BrowserSingleton.getInstance(Reader.getParametr("browser"));
     }
 
     public static void setTimeToWait(WebDriver driver, int timeout) {

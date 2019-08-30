@@ -7,19 +7,15 @@ import java.util.Properties;
 
 public class Reader {
 
-    public static String getStringParametr(String parametr) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+    public static String getParametr(String parametr) {
         Properties property = new Properties();
-        property.load(fileInputStream);
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+            property.load(fileInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String parametrFromProperties = property.getProperty(parametr);
-        return parametrFromProperties;
-    }
-
-    public static int getIntParametr(String parametr) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
-        Properties property = new Properties();
-        property.load(fileInputStream);
-        int parametrFromProperties = Integer.parseInt(property.getProperty(parametr));
         return parametrFromProperties;
     }
 

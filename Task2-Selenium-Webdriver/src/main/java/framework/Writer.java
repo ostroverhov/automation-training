@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Writer {
-    List<String> category = new ArrayList<String>();
 
-    public static void writeCategoryCSV(List<String> category) throws IOException {
-        FileWriter fileWriter = new FileWriter("category.csv");
+    public static void writeCategory(List<String> category, String filename) throws IOException {
+        FileWriter fileWriter = new FileWriter(filename);
         for (String s:category) {
             fileWriter.write(s + "\n");
         }
         fileWriter.close();
     }
-
 }

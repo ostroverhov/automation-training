@@ -1,8 +1,8 @@
 package browser;
 
-public class IllegalBrowserNameException extends Exception {
+public class IllegalBrowserNameException extends IllegalArgumentException {
 
     public IllegalBrowserNameException() {
-        super("Выберите браузер chrome / firefox");
+        System.out.println("Выберите браузер chrome / firefox");
     }
 }

@@ -4,16 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class RandomCategoryPage {
-    WebDriver driver;
+public class RandomCategoryPage extends BasePage {
 
-    By nameCategoryLocator = By.xpath("//h1[@class='_39qdPorEKz']");
+    By nameCategoryLocator = By.xpath("//div[@data-apiary-widget-name]");
 
-    public RandomCategoryPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public String getNamePage(){
-        return driver.findElement(nameCategoryLocator).getAttribute("innerText").toLowerCase();
+    public String getNamePage() {
+        return driver.findElement(nameCategoryLocator).getAttribute("innerText");
     }
 }
