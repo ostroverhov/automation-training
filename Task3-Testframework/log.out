@@ -1,0 +1,20 @@
+2019-09-05 16:39:29 INFO  MyLogger:10 - Step: Старт теста
+2019-09-05 16:39:29 INFO  MyLogger:14 - Info:  инициализация драйвера chrome
+2019-09-05 16:39:30 INFO  MyLogger:14 - Info:  установка максимального размера окна
+2019-09-05 16:39:30 INFO  MyLogger:14 - Info:  установка URL https://store.steampowered.com/
+2019-09-05 16:39:32 INFO  MyLogger:10 - Step: Открытие и проверка главной страницы
+2019-09-05 16:39:32 INFO  MyLogger:14 - Info:   создание элемента buttonInstall на Header
+2019-09-05 16:39:32 INFO  MyLogger:14 - Info:   элемент отображается buttonInstall на Header
+2019-09-05 16:39:32 INFO  MyLogger:10 - Step: Переход на страницу установки
+2019-09-05 16:39:32 INFO  MyLogger:14 - Info:   создание элемента buttonInstall на Header
+2019-09-05 16:39:32 INFO  MyLogger:14 - Info:   клик по элементу buttonInstall на Header
+2019-09-05 16:39:33 INFO  MyLogger:10 - Step: Проверка открытия страницы установки
+2019-09-05 16:39:33 INFO  MyLogger:14 - Info:   создание элемента buttonInstall на InstallPage
+2019-09-05 16:39:33 INFO  MyLogger:14 - Info:   элемент отображается buttonInstall на InstallPage
+2019-09-05 16:39:33 INFO  MyLogger:10 - Step: Скачивание установочного файла
+2019-09-05 16:39:33 INFO  MyLogger:14 - Info:   создание элемента buttonInstall на InstallPage
+2019-09-05 16:39:33 INFO  MyLogger:14 - Info:   клик по элементу buttonInstall на InstallPage
+2019-09-05 16:39:33 INFO  MyLogger:14 - Info: Получение имени файла в зависимости от ОС
+2019-09-05 16:39:34 INFO  MyLogger:10 - Step: Проверка наличия файла в файловой системе
+2019-09-05 16:39:34 INFO  MyLogger:10 - Step: Окончание теста
+2019-09-05 16:39:34 INFO  MyLogger:14 - Info:  закрытие драйвера

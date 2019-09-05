@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "SuiteDiscount">
+    <test name="testMaxDiscount">
+        <classes>
+            <class name="TestDiscountGame">
+                <methods>
+                    <parameter name="genreGame" value="Action"/>
+                    <parameter name="selectDiscount" value="max"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="testMinDiscount">
+        <classes>
+            <class name="TestDiscountGame">
+                <methods>
+                    <parameter name="genreGame" value="Indie"/>
+                    <parameter name="selectDiscount" value="min"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
