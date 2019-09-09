@@ -3,5 +3,9 @@ package app.pages;
 import app.form.HeadPanelGamePage;
 
 public class GamePage {
-    public HeadPanelGamePage headPanelGamePage = new HeadPanelGamePage();
+    private HeadPanelGamePage headPanelGamePage = new HeadPanelGamePage();
+
+    public HeadPanelGamePage getHeadPanelGamePage() {
+        return headPanelGamePage;
+    }
 }

@@ -1,4 +1,5 @@
 import app.pages.*;
+import framework.browser.Browser;
 import framework.browser.BrowserFactory;
 import framework.utils.*;
 import org.testng.Assert;
@@ -7,41 +8,25 @@ import org.testng.annotations.*;
 import java.io.File;
 
 
-public class TestSteam {
-
-    String URL = Reader.getParametr("URL");
-    int timeout = Integer.parseInt(Reader.getParametr("timeout"));
-
-    @BeforeMethod
-    public void setUp() {
-        MyLogger.step("Старт теста");
-        Wait.setImplicityWait(timeout);
-        BrowserFactory.setMaxSizeWindow();
-        BrowserFactory.setURL(URL);
-        Directories.cleanDirectory(Reader.getParametr("path"));
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        MyLogger.step("Окончание теста");
-        BrowserFactory.closeBrowser();
-    }
+public class TestSteam extends CommonConditions {
 
     @Test
     public void testSteamInstall() {
-        MyLogger.step("Открытие и проверка главной страницы");
+        MyLogger.step("Open and check main page");
         MainPage mainPage = new MainPage();
-        Assert.assertTrue(mainPage.header.isDisplayedButtonInstall(), "главная страница не открылась");
-        MyLogger.step("Переход на страницу установки");
-        mainPage.header.clickOnButtonInstall();
+        Assert.assertTrue(mainPage.getHeader().isDisplayedButtonInstall(), "main page not found");
+
+        MyLogger.step("Go to download page");
+        mainPage.getHeader().clickOnButtonInstall();
         InstallPage installPage = new InstallPage();
-        MyLogger.step("Проверка открытия страницы установки");
-        Assert.assertTrue(installPage.isDisplayedButtonInstall(), "страница установки не открылась");
-        MyLogger.step("Скачивание установочного файла");
+        Assert.assertTrue(installPage.isDisplayedButtonInstall(), "download page not found");
+
+        MyLogger.step("Download file");
         installPage.clickButtonInstall();
         File downloadFile = new File(Reader.getNameDownloadFile());
         Wait.waitForFile(downloadFile);
-        MyLogger.step("Проверка наличия файла в файловой системе");
-        Assert.assertTrue(downloadFile.isFile(), "файл не найден");
+
+        MyLogger.step("Check file in system");
+        Assert.assertTrue(downloadFile.isFile(), "file not found");
     }
 }

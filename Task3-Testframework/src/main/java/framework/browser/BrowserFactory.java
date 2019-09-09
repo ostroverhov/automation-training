@@ -22,7 +22,7 @@ public class BrowserFactory {
 
     public static WebDriver getInstance(String browser) throws IllegalBrowserNameException {
         if (driver == null) {
-            MyLogger.info(" инициализация драйвера " + browser);
+            MyLogger.info(" driver init " + browser);
             switch (browser){
                 case "chrome":
                     WebDriverManager.getInstance(CHROME).setup();
@@ -33,7 +33,7 @@ public class BrowserFactory {
                     driver = new FirefoxDriver(BrowserSettings.firefoxSettings());
                     break;
                 default:
-                    MyLogger.warn("Невенрно выбран браузер");
+                    MyLogger.warn("Illegal browser");
                     throw new IllegalBrowserNameException();
             }
         }
@@ -41,20 +41,10 @@ public class BrowserFactory {
     }
 
     public static void closeBrowser() {
-        MyLogger.info(" закрытие драйвера");
+        MyLogger.info(" close driver");
         if (driver != null) {
             driver.quit();
         }
         driver = null;
-    }
-
-    public static void setMaxSizeWindow() {
-        MyLogger.info(" установка максимального размера окна");
-        driver.manage().window().maximize();
-    }
-
-    public static void setURL(String URL) {
-        MyLogger.info(" установка URL " + URL);
-        driver.get(URL);
     }
 }

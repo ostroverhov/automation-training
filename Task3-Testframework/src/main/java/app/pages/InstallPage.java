@@ -6,7 +6,7 @@ public class InstallPage {
     String locate = " на InstallPage";
     String buttonInstallLocator = "//a[@class='about_install_steam_link']";
 
-    public Button getButton(){
+    private Button getButton(){
         return new Button(buttonInstallLocator, "buttonInstall" + locate);
     }
 

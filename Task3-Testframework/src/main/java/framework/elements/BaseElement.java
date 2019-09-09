@@ -9,39 +9,37 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public abstract class BaseElement {
-    WebElement element;
-    List<WebElement> elements;
     String nameElement;
+    String locator;
 
     public BaseElement(String locator, String nameElement) {
-        MyLogger.info("  создание элемента " + nameElement);
-        element = BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator));
-        elements = BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(By.xpath(locator));
+        MyLogger.info("  create element " + nameElement);
         this.nameElement = nameElement;
+        this.locator = locator;
     }
 
     public WebElement getElement() {
-        MyLogger.info("  получение элемента "+ nameElement);
-        return element;
+        MyLogger.info("  get element "+ nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator));
     }
 
     public List<WebElement> getElements() {
-        MyLogger.info("  получение элементов " + nameElement);
-        return elements;
+        MyLogger.info("  get elements " + nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(By.xpath(locator));
     }
 
     public boolean isDispl() {
-        MyLogger.info("  элемент отображается " + nameElement);
-        return element.isDisplayed();
+        MyLogger.info("  element is displayed " + nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).isDisplayed();
     }
 
     public void clickElement() {
-        MyLogger.info("  клик по элементу " + nameElement);
-        element.click();
+        MyLogger.info("  click on element " + nameElement);
+        BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).click();
     }
 
     public String getTextFromElement() {
-        MyLogger.info("  получение текста из элемента " + nameElement);
-        return element.getText();
+        MyLogger.info("  get text from element " + nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).getText();
     }
 }

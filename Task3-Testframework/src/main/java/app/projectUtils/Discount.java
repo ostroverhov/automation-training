@@ -1,11 +1,11 @@
-package framework.utils;
+package app.projectUtils;
 
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 public class Discount {
-    public static int indexMimDiscountGame(List<Integer> elements){
+    public static int indexMaxDiscountGame(List<Integer> elements){
         int index = 0;
         for (int i=0; i<elements.size(); i++) {
             if (elements.get(index) < elements.get(i)){

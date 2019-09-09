@@ -5,33 +5,28 @@ import framework.elements.DropDownList;
 import framework.elements.Panel;
 
 public class ValidateBirthdayForm {
-    String locate = " на ValidateBirthdayForm";
+    private String locate = " on ValidateBirthdayForm";
 
-    String yearAgeLocator = "//option[contains(text(),'1993')]";
-    String viewPageButtonLocator = "//a[@class='btnv6_blue_hoverfade btn_medium']";
-    String panelAgeLocator = "//div[@id='app_agegate']";
+    private String yearAgeLocator = "//option[contains(text(),'%s')]";
+    private String viewPageButtonLocator = "//a[@class='btnv6_blue_hoverfade btn_medium']";
+    private String panelAgeLocator = "//div[@id='app_agegate']";
 
-    private DropDownList getDropDownList(){
-        return new DropDownList(yearAgeLocator, "DropDownList" + locate);
+    private Button buttonVievPage = new Button(viewPageButtonLocator, "ButtonViewPage"  + locate);
+    private Panel panelAge = new Panel(panelAgeLocator, "PanelAge" + locate);
+
+    private DropDownList getDropDownList(int year){
+        return new DropDownList((String.format(yearAgeLocator, year)), "DropDownList" + locate);
     }
 
-    private Button getButtonViewPage(){
-        return new Button(viewPageButtonLocator, "ButtonViewPage"  + locate);
-    }
-
-    private Panel getPanelAge(){
-        return new Panel(panelAgeLocator, "PanelAge" + locate);
-    }
-
-    public void inputAge(){
-        getDropDownList().clickElement();
+    public void inputAge(int year){
+        getDropDownList(year).clickElement();
     }
 
     public void clickButtonVievPage(){
-        getButtonViewPage().clickElement();
+        buttonVievPage.clickElement();
     }
 
     public boolean panelAgeIsDispl(){
-        return getPanelAge().isDispl();
+        return panelAge.isDispl();
     }
 }

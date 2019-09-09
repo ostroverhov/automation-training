@@ -8,6 +8,7 @@
                 <methods>
                     <parameter name="genreGame" value="Action"/>
                     <parameter name="selectDiscount" value="max"/>
+                    <parameter name="year" value="1993"/>
                 </methods>
             </class>
         </classes>
@@ -19,6 +20,7 @@
                 <methods>
                     <parameter name="genreGame" value="Indie"/>
                     <parameter name="selectDiscount" value="min"/>
+                    <parameter name="year" value="1993"/>
                 </methods>
             </class>
         </classes>

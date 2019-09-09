@@ -3,14 +3,11 @@ package app.form;
 import framework.elements.Panel;
 
 public class HeadPanel {
-    String locate = " на HeadPanel";
-    String panelNameLocator = "//h2[@class='pageheader']";
+    private String locate = " on HeadPanel";
+    private String panelNameLocator = "//h2[@class='pageheader']";
+    private Panel panelName = new Panel(panelNameLocator, "PanelName" + locate);
 
-    private Panel getPanelName() {
-        return new Panel(panelNameLocator, "PanelName" + locate);
-    }
-
-    public String getPanelNameText(){
-        return getPanelName().getTextFromElement();
+    public String getPanelNameText() {
+        return panelName.getTextFromElement();
     }
 }
