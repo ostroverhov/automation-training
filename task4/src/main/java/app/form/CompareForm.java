@@ -11,6 +11,8 @@ public class CompareForm {
     private String buttonStartCompareLocator = "//button[@class='done-button']";
     private String buttonDoneLocator = "//button[@class='modal-button']";
 
+    private Button buttonStartCompare = new Button(buttonStartCompareLocator, "button start compare" + locate);
+
     private DropDownMenu getDropDownMake(String make) {
         return new DropDownMenu(String.format(dropDownMakeLocator, make), "dropDownMenu of Maker" + locate);
     }
@@ -23,11 +25,7 @@ public class CompareForm {
         return new DropDownMenu(String.format(dropDownYearLocator, year), "dropDownMenu of year" + locate);
     }
 
-    private Button getButtonStartCompare() {
-        return new Button(buttonStartCompareLocator, "button start compare" + locate);
-    }
-
-    private Button getButtonDone(){
+    private Button getButtonDone() {
         return new Button(buttonDoneLocator, "button done" + locate);
     }
 
@@ -44,14 +42,14 @@ public class CompareForm {
     }
 
     public void clickButtonStartCompare() {
-        getButtonStartCompare().clickElement();
+        buttonStartCompare.clickElement();
     }
 
-    public boolean isDisplButtonStartCompare(){
-        return getButtonStartCompare().isDispl();
+    public boolean isDisplayedButtonStartCompare() {
+        return buttonStartCompare.isDisplayedElement();
     }
 
-    public void clickButtonDone(){
+    public void clickButtonDone() {
         getButtonDone().clickElement();
     }
 }

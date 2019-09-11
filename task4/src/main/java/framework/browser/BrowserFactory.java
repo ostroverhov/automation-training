@@ -18,7 +18,7 @@ public class BrowserFactory {
     public static WebDriver getInstance(String browser) throws IllegalBrowserNameException {
         if (driver == null) {
             MyLogger.info(" driver init " + browser);
-            switch (browser){
+            switch (browser) {
                 case "chrome":
                     WebDriverManager.getInstance(CHROME).setup();
                     driver = new ChromeDriver(BrowserSettings.chromeSettings());
@@ -51,5 +51,10 @@ public class BrowserFactory {
     public static void setURL(String URL) {
         MyLogger.info(" set URL " + URL);
         driver.get(URL);
+    }
+
+    public static void goToMainPage(String URL) {
+        MyLogger.info(" go to main page");
+        driver.navigate().to(URL);
     }
 }

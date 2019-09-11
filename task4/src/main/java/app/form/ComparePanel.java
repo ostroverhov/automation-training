@@ -4,74 +4,54 @@ import framework.elements.Button;
 import framework.elements.Panel;
 import framework.utils.Wait;
 
-public class ComparePanel {//cars-compare-compare-info[@header='Engine']//span
+public class ComparePanel {
     private String locate = " on Compare Form";
-    private String buttonAddAnotherCar = "//a[@id='add-from-your-favorite-cars-link']";
-    private String panelFirstCar = "//cars-compare-compare-info[@format='research-car-mmyt']//span[1]";
-    private String panelSecondCar = "//cars-compare-compare-info[@format='research-car-mmyt']//span[2]";
-    private String panelFirstCarEngine= "//cars-compare-compare-info[@header='Engine']//span[1]"; //add class
-    private String panelSecondCarEngine = "//cars-compare-compare-info[@header='Engine']//span[2]";
-    private String panelFirstCarTrans = "//cars-compare-compare-info[@header='Transmission']//span[1]";
-    private String panelSecondCarTrans = "//cars-compare-compare-info[@header='Transmission']//span[2]";
+    private String buttonAddAnotherCarLocator = "//a[@id='add-from-your-favorite-cars-link']";
+    private String panelFirstCarLocator = "//cars-compare-compare-info[@format='research-car-mmyt']//span[1]";
+    private String panelSecondCarLocator = "//cars-compare-compare-info[@format='research-car-mmyt']//span[2]";
+    private String panelFirstCarEngineLocator = "//cars-compare-compare-info[@header='Engine']//span[1]"; //add class
+    private String panelSecondCarEngineLocator = "//cars-compare-compare-info[@header='Engine']//span[2]";
+    private String panelFirstCarTransLocator = "//cars-compare-compare-info[@header='Transmission']//span[1]";
+    private String panelSecondCarTransLocator = "//cars-compare-compare-info[@header='Transmission']//span[2]";
 
-    private Button getButtonAddAnotherCar() {
-        return new Button(buttonAddAnotherCar, " button" + locate);
-    }
-
-    private Panel getPanelFirstCar() {
-        return new Panel(panelFirstCar, "panel first car" + locate);
-    }
-
-    private Panel getPanelSecondCar() {
-        return new Panel(panelSecondCar, "panel second car" + locate);
-    }
-
-    private Panel getPanelFirstCarEngine() {
-        return new Panel(panelFirstCarEngine, "panel first car engine" + locate);
-    }
-
-    private Panel getPanelSecondCarEngine() {
-        return new Panel(panelSecondCarEngine, "panel second car engine" + locate);
-    }
-
-    private Panel getPanelFirstCarTrans() {
-        return new Panel(panelFirstCarTrans, "panel first car trans" + locate);
-    }
-
-    private Panel getPanelSecondCarTrans() {
-        return new Panel(panelSecondCarTrans, "panel second car trans" + locate);
-    }
+    private Button buttonAddAnotherCar = new Button(buttonAddAnotherCarLocator, " button" + locate);
+    private Panel panelFirstCar = new Panel(panelFirstCarLocator, "panel first car" + locate);
+    private Panel panelSecondCar = new Panel(panelSecondCarLocator, "panel second car" + locate);
+    private Panel panelFirstCarEngine = new Panel(panelFirstCarEngineLocator, "panel first car engine" + locate);
+    private Panel panelSecondCarEngine = new Panel(panelSecondCarEngineLocator, "panel second car engine" + locate);
+    private Panel panelFirstCarTrans = new Panel(panelFirstCarTransLocator, "panel first car trans" + locate);
+    private Panel panelSecondCarTrans = new Panel(panelSecondCarTransLocator, "panel second car trans" + locate);
 
     public void clickOnButtonAddAnotherCar() {
-        getButtonAddAnotherCar().clickElement();
+        buttonAddAnotherCar.clickElement();
     }
 
-    public boolean isDisplButtonAddAnotherCar(){
-        return Wait.waitElements(getButtonAddAnotherCar().getElement()).isDisplayed();
+    public boolean isDisplayedButtonAddAnotherCar() {
+        return Wait.waitElements(buttonAddAnotherCar.getElement()).isDisplayed();
     }
 
     public String getTextFromPanelFirstCar() {
-        return getPanelFirstCar().getTextFromElement();
+        return panelFirstCar.getTextFromElement();
     }
 
     public String getTextFromPanelSecondCar() {
-        return getPanelSecondCar().getTextFromElement();
+        return panelSecondCar.getTextFromElement();
     }
 
     public String getTextFromPanelFirstCarEngine() {
-        return getPanelFirstCarEngine().getTextFromElement();
+        return panelFirstCarEngine.getTextFromElement();
     }
 
     public String getTextFromPanelSecondCarEngine() {
-        return getPanelSecondCarEngine().getTextFromElement();
+        return panelSecondCarEngine.getTextFromElement();
     }
 
     public String getTextFromPanelFirstCarTrans() {
-        return getPanelFirstCarTrans().getTextFromElement();
+        return panelFirstCarTrans.getTextFromElement();
     }
 
     public String getTextFromPanelSecondCarTrans() {
-        return getPanelSecondCarTrans().getTextFromElement();
+        return panelSecondCarTrans.getTextFromElement();
     }
 
 }

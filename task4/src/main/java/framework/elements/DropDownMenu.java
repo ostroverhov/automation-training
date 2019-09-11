@@ -13,11 +13,11 @@ public class DropDownMenu extends BaseElement {
         super(locator, nameElement);
     }
 
-    public void clickRandom(int random){
+    public void clickRandom(int random) {
         getElements().get(random).click();
     }
 
-    public String getTextRandom(int random){
+    public String getTextRandom(int random) {
         return getElements().get(random).getText();
     }
 }

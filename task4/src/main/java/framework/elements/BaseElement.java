@@ -10,10 +10,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public abstract class BaseElement {
-    WebElement element;
-    List<WebElement> elements;
-    String nameElement;
-    String locator;
+    private String nameElement;
+    private String locator;
 
     public BaseElement(String locator, String nameElement) {
         MyLogger.info("  create element " + nameElement);
@@ -22,7 +20,7 @@ public abstract class BaseElement {
     }
 
     public WebElement getElement() {
-        MyLogger.info("  get element "+ nameElement);
+        MyLogger.info("  get element " + nameElement);
         return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator));
     }
 
@@ -31,7 +29,7 @@ public abstract class BaseElement {
         return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(By.xpath(locator));
     }
 
-    public boolean isDispl() {
+    public boolean isDisplayedElement() {
         MyLogger.info("  element is displayed " + nameElement);
         return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).isDisplayed();
     }

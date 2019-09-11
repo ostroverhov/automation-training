@@ -3,7 +3,6 @@ package app.form;
 import framework.elements.Button;
 import framework.elements.DropDownMenu;
 import framework.utils.RandomElements;
-import org.openqa.selenium.WebElement;
 
 public class ResearchForm {
     private String locate = " on ResearchForm";
@@ -15,63 +14,52 @@ public class ResearchForm {
     private int randomModel;
     private int randomYear;
 
-    private DropDownMenu getDropDownMake() {
-        return new DropDownMenu(dropDownMakeLocator, "dropDownMenu of Maker" + locate);
-    }
-
-    private DropDownMenu getDropDownModel() {
-        return new DropDownMenu(dropDownModelLocator, "dropDownMenu of model" + locate);
-    }
-
-    private DropDownMenu getDropDownYear() {
-        return new DropDownMenu(dropDownYearLocator, "dropDownMenu of year" + locate);
-    }
-
-    private Button getButtonResearch() {
-        return new Button(buttonSearchLocator, "button research" + locate);
-    }
+    private DropDownMenu dropDownMake = new DropDownMenu(dropDownMakeLocator, "dropDownMenu of Maker" + locate);
+    private DropDownMenu dropDownModel = new DropDownMenu(dropDownModelLocator, "dropDownMenu of model" + locate);
+    private DropDownMenu dropDownYear = new DropDownMenu(dropDownYearLocator, "dropDownMenu of year" + locate);
+    private Button buttonResearch = new Button(buttonSearchLocator, "button research" + locate);
 
     public void getNumberRandomMake() {
-        randomMake = RandomElements.getRandom(getDropDownMake().getElements().size());
+        randomMake = RandomElements.getRandom(dropDownMake.getElements().size());
     }
 
-    public void clickRandomMake(){
-        getDropDownMake().clickRandom(randomMake);
+    public void clickRandomMake() {
+        dropDownMake.clickRandom(randomMake);
     }
 
     public String getTextRandomMake() {
-        return getDropDownMake().getTextRandom(randomMake);
+        return dropDownMake.getTextRandom(randomMake);
     }
 
     public void getNumberRandomModel() {
-        randomModel = RandomElements.getRandom(getDropDownModel().getElements().size());
+        randomModel = RandomElements.getRandom(dropDownModel.getElements().size());
     }
 
-    public void clickRandomModel(){
-        getDropDownModel().clickRandom(randomModel);
+    public void clickRandomModel() {
+        dropDownModel.clickRandom(randomModel);
     }
 
-    public String getTextRandomModel(){
-        return getDropDownModel().getTextRandom(randomModel);
+    public String getTextRandomModel() {
+        return dropDownModel.getTextRandom(randomModel);
     }
 
     public void getNumberRandomYear() {
-        randomYear = RandomElements.getRandom(getDropDownYear().getElements().size());
+        randomYear = RandomElements.getRandom(dropDownYear.getElements().size());
     }
 
-    public void clickRandomYear(){
-        getDropDownYear().clickRandom(randomYear);
+    public void clickRandomYear() {
+        dropDownYear.clickRandom(randomYear);
     }
 
     public String getTextRandomYear() {
-        return getDropDownYear().getTextRandom(randomYear);
+        return dropDownYear.getTextRandom(randomYear);
     }
 
     public void clickButtonResearch() {
-        getButtonResearch().clickElement();
+        buttonResearch.clickElement();
     }
 
-    public void selectCar(){
+    public void selectCar() {
         getNumberRandomMake();
         clickRandomMake();
         getNumberRandomModel();
