@@ -9,8 +9,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public abstract class BaseElement {
-    String nameElement;
-    String locator;
+    private String nameElement;
+    private String locator;
 
     public BaseElement(String locator, String nameElement) {
         MyLogger.info("  create element " + nameElement);

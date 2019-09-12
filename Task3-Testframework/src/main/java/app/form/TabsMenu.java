@@ -5,7 +5,6 @@ import framework.elements.SubMenu;
 import framework.elements.Tab;
 import app.projectUtils.Discount;
 import framework.utils.MyLogger;
-import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -27,10 +26,15 @@ public class TabsMenu {
         tabTopSeller.clickElement();
     }
 
-    public boolean isDisplayedTabTopSeller(){
+    public boolean isDisplayedTabTopSeller() {
         return tabTopSeller.isDispl();
     }
 
+    /**
+     * Create new object Car with max or min discount from list of WebElements in dependency of param selectDiscount
+     * @param selectDiscount
+     * @return Object Game
+     */
     public Game getGameDiscountFromTopSellerTab(String selectDiscount) {
         MyLogger.info("Get game with " + selectDiscount + " discount");
 
