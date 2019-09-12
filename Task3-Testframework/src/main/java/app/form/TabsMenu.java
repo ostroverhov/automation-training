@@ -32,8 +32,8 @@ public class TabsMenu {
 
     /**
      * Create new object Car with max or min discount from list of WebElements in dependency of param selectDiscount
-     * @param selectDiscount
-     * @return Object Game
+     * @param selectDiscount - selected type of discount, max or min
+     * @return Game - object with parameters: name, discount, initial price, discount price
      */
     public Game getGameDiscountFromTopSellerTab(String selectDiscount) {
         MyLogger.info("Get game with " + selectDiscount + " discount");
