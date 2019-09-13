@@ -1,11 +1,11 @@
-package app;
+package app.models;
 
 public class Car {
     private String make;
     private String model;
     private String year;
     private String engine;
-    private String trans;
+    private String transmission;
 
     public String getMake() {
         return make;
@@ -23,8 +23,8 @@ public class Car {
         return engine;
     }
 
-    public String getTrans() {
-        return trans;
+    public String getTransmission() {
+        return transmission;
     }
 
     public void setMake(String make) {
@@ -43,7 +43,7 @@ public class Car {
         this.engine = engine;
     }
 
-    public void setTrans(String trans) {
-        this.trans = trans;
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
     }
 }

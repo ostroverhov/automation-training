@@ -1,13 +1,13 @@
 package framework.browser;
 
 import framework.utils.MyLogger;
+import framework.utils.Reader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import static io.github.bonigarcia.wdm.DriverManagerType.CHROME;
-import static io.github.bonigarcia.wdm.DriverManagerType.FIREFOX;
+import java.util.concurrent.TimeUnit;
 
 public class BrowserFactory {
     private static WebDriver driver;
@@ -17,18 +17,18 @@ public class BrowserFactory {
 
     public static WebDriver getInstance(String browser) throws IllegalBrowserNameException {
         if (driver == null) {
-            MyLogger.info(" driver init " + browser);
+            MyLogger.info("driver init " + browser);
             switch (browser) {
                 case "chrome":
-                    WebDriverManager.getInstance(CHROME).setup();
+                    WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(BrowserSettings.chromeSettings());
                     break;
                 case "firefox":
-                    WebDriverManager.getInstance(FIREFOX).setup();
+                    WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver(BrowserSettings.firefoxSettings());
                     break;
                 default:
-                    MyLogger.warn(" browser wasn't select ");
+                    MyLogger.warn("browser wasn't select ");
                     throw new IllegalBrowserNameException();
             }
         }
@@ -36,25 +36,24 @@ public class BrowserFactory {
     }
 
     public static void closeBrowser() {
-        MyLogger.info(" close driver");
+        MyLogger.info("close driver");
         if (driver != null) {
             driver.quit();
         }
         driver = null;
     }
 
+    public static void setImplicityWait(int timeout) {
+        getInstance(Reader.getParametr("browser")).manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+    }
+
     public static void setMaxSizeWindow() {
-        MyLogger.info(" set max size window");
+        MyLogger.info("set max size window");
         driver.manage().window().maximize();
     }
 
-    public static void setURL(String URL) {
-        MyLogger.info(" set URL " + URL);
-        driver.get(URL);
-    }
-
-    public static void goToMainPage(String URL) {
-        MyLogger.info(" go to main page");
-        driver.navigate().to(URL);
+    public static void setUrl(String url) {
+        MyLogger.info("set URL " + url);
+        driver.get(url);
     }
 }

@@ -3,15 +3,13 @@ package framework.browser;
 import framework.utils.Reader;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.HashMap;
 
 
 public class BrowserSettings {
 
-    public static DesiredCapabilities chromeSettings() {
+    public static ChromeOptions chromeSettings() {
         String pathToDownload = Reader.getParametr("path");
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
@@ -20,10 +18,10 @@ public class BrowserSettings {
         chromePrefs.put("intl.accept_languages", Reader.getParametr("locale"));
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
-        DesiredCapabilities cap = DesiredCapabilities.chrome();
-        cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-        cap.setCapability(ChromeOptions.CAPABILITY, options);
-        return cap;
+//        DesiredCapabilities cap = DesiredCapabilities.chrome();
+//        cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//        cap.setCapability(ChromeOptions.CAPABILITY, options);
+        return options;
     }
 
     public static FirefoxOptions firefoxSettings() {

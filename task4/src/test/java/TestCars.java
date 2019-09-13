@@ -1,12 +1,17 @@
-import app.Car;
+import app.form.CompareForm;
+import app.form.ComparePanel;
+import app.models.Car;
 import app.pages.*;
 import framework.browser.BrowserFactory;
 import framework.utils.MyLogger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static app.form.MenuHeaderItem.RESEARCH;
 
-public class TestCars extends CommonConditions {
+
+public class TestCars extends BaseTest {
+    private static final int iteration = 3;
 
     @Test
     public void testCars() {
@@ -18,7 +23,7 @@ public class TestCars extends CommonConditions {
         Car firstCar = addCar();
 
         MyLogger.step("Go to main page");
-        BrowserFactory.goToMainPage(URL);
+        BrowserFactory.setUrl(URL);
         Assert.assertTrue(mainPage.getTopMenu().isDisplButtonLogoMainPage(), "Main page not found");
 
         MyLogger.step("Create second car");
@@ -26,83 +31,85 @@ public class TestCars extends CommonConditions {
 
         MyLogger.step("Go to research page");
         CompareTrimPage compareTrimPage = new CompareTrimPage();
-        compareTrimPage.getTopMenu().clickOnButtonTopMenu("Research");
+        compareTrimPage.getTopMenu().clickOnButtonTopMenu(RESEARCH);
         ResearchPage researchPage = new ResearchPage();
         Assert.assertTrue(researchPage.getToolsForm().isDisplToolsForm(), "Page research not found");
 
         MyLogger.step("Click side-by-side comparisons");
         researchPage.getToolsForm().clickOnButtonToolsForm("Side-by-side Comparisons");
         CompareSideBySideCarsPage compareSideBySideCarsPage = new CompareSideBySideCarsPage();
-        Assert.assertTrue(compareSideBySideCarsPage.getCompareForm().isDisplayedButtonStartCompare(), "Page side-by-side comparisons not found");
+        CompareForm compareForm = compareSideBySideCarsPage.getCompareForm();
+        Assert.assertTrue(compareForm.isDisplayedButtonStartCompare(), "Page side-by-side comparisons not found");
 
         MyLogger.step("Select first car and go to model compare page");
-        compareSideBySideCarsPage.getCompareForm().clickMake(firstCar.getMake());
-        compareSideBySideCarsPage.getCompareForm().clickModel(firstCar.getModel());
-        compareSideBySideCarsPage.getCompareForm().clickYear(firstCar.getYear());
-        compareSideBySideCarsPage.getCompareForm().clickButtonStartCompare();
+        compareForm.clickMake(firstCar.getMake()); //упростить
+        compareForm.clickModel(firstCar.getModel());
+        compareForm.clickYear(firstCar.getYear());
+        compareForm.clickButtonStartCompare();
         ModelComparePage modelComparePage = new ModelComparePage();
-        Assert.assertTrue(modelComparePage.getComparePanel().isDisplayedButtonAddAnotherCar(), "Model compare page not found");
+        ComparePanel comparePanel = modelComparePage.getComparePanel();
+        Assert.assertTrue(comparePanel.isDisplayedButtonAddAnotherCar(), "Model compare page not found");
 
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelFirstCar().contains(firstCar.getMake()), "make not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelFirstCar().contains(firstCar.getModel()), "model not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelFirstCar().contains(firstCar.getYear()), "year not match");
+        String textFromPanelFirstCar = comparePanel.getTextFromPanelFirstCar(); // todo так тоже сделать
+        assertCarParameters(textFromPanelFirstCar, firstCar.getMake(), "make");  //todo добавить
+        assertCarParameters(textFromPanelFirstCar, firstCar.getModel(), "model");
+        assertCarParameters(textFromPanelFirstCar, firstCar.getYear(), "year");
 
         MyLogger.step("Add second car to model compare page");
-        modelComparePage.getComparePanel().clickOnButtonAddAnotherCar();
-        modelComparePage.getCompareForm().clickMake(secondCar.getMake());
+        comparePanel.clickOnButtonAddAnotherCar();
+        modelComparePage.getCompareForm().clickMake(secondCar.getMake());  //упростить
         modelComparePage.getCompareForm().clickModel(secondCar.getModel());
         modelComparePage.getCompareForm().clickYear(secondCar.getYear());
         modelComparePage.getCompareForm().clickButtonDone();
 
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelSecondCar().contains(secondCar.getMake()), "make not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelSecondCar().contains(secondCar.getModel()), "model not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelSecondCar().contains(secondCar.getYear()), "year not match");
+        String textFromPanelSecondCar = comparePanel.getTextFromPanelSecondCar();
+        assertCarParameters(textFromPanelSecondCar, secondCar.getMake(), "make");
+        assertCarParameters(textFromPanelSecondCar, secondCar.getModel(), "model");
+        assertCarParameters(textFromPanelSecondCar, secondCar.getYear(), "year");
 
         MyLogger.step("Compare engine and transmission of cars");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelFirstCarEngine().contains(firstCar.getEngine()), "engine first car not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelSecondCarEngine().contains(secondCar.getEngine()), "engine second car not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelFirstCarTrans().contains(firstCar.getTrans()), "trans first car not match");
-        Assert.assertTrue(modelComparePage.getComparePanel().getTextFromPanelSecondCarTrans().contains(secondCar.getTrans()), "trans second car not match");
+        Assert.assertTrue(comparePanel.getTextFromPanelFirstCarEngine().contains(firstCar.getEngine()), "engine first car not match");
+        Assert.assertTrue(comparePanel.getTextFromPanelSecondCarEngine().contains(secondCar.getEngine()), "engine second car not match");
+        Assert.assertTrue(comparePanel.getTextFromPanelFirstCarTrans().contains(firstCar.getTransmission()), "trans first car not match");
+        Assert.assertTrue(comparePanel.getTextFromPanelSecondCarTrans().contains(secondCar.getTransmission()), "trans second car not match");
     }
 
     private Car addCar() {
         MainPage mainPage = new MainPage();
         MyLogger.step("Go to research page");
-        mainPage.getTopMenu().clickOnButtonTopMenuMain("Research");
+        mainPage.getTopMenu().clickOnButtonTopMenuMain(RESEARCH);
         ResearchPage researchPage = new ResearchPage();
         Assert.assertTrue(researchPage.getToolsForm().isDisplToolsForm(), "Page research not found");
 
-        MyLogger.step("Select random parametr and create car. Go to car's page");
-        Car car = new Car();
-        researchPage.getResearchForm().selectCar();
-        car.setMake(researchPage.getResearchForm().getTextRandomMake());
-        car.setModel(researchPage.getResearchForm().getTextRandomModel());
-        car.setYear(researchPage.getResearchForm().getTextRandomYear());
+        MyLogger.step("Select random parameter and create car. Go to car's page");
+        Car car = researchPage.getResearchForm().selectCar(); //todo сделать так
         researchPage.getResearchForm().clickButtonResearch();
         CarPage carPage = new CarPage();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < iteration; i++) {
             if (!carPage.getInfoSection().buttonIsPresent()) {
-                carPage.getTopMenu().clickOnButtonTopMenu("Research");
+                carPage.getTopMenu().clickOnButtonTopMenu(RESEARCH);
                 researchPage.getResearchForm().selectCar();
-                car.setMake(researchPage.getResearchForm().getTextRandomMake());
-                car.setModel(researchPage.getResearchForm().getTextRandomModel());
-                car.setYear(researchPage.getResearchForm().getTextRandomYear());
                 researchPage.getResearchForm().clickButtonResearch();
             }
             if (carPage.getInfoSection().buttonIsPresent()) {
                 break;
             }
         }
-        Assert.assertTrue(carPage.getInfoSection().getTextPanelInfoCar().contains(car.getMake()), "make not match");
-        Assert.assertTrue(carPage.getInfoSection().getTextPanelInfoCar().contains(car.getModel()), "model not match");
-        Assert.assertTrue(carPage.getInfoSection().getTextPanelInfoCar().contains(car.getYear()), "year not match");
+        String textPanelInfoCar = carPage.getInfoSection().getTextPanelInfoCar();
+        assertCarParameters(textPanelInfoCar, car.getMake(), "make");
+        assertCarParameters(textPanelInfoCar, car.getModel(), "model");
+        assertCarParameters(textPanelInfoCar, car.getYear(), "year");
 
         MyLogger.step("Go to page compare trim");
         carPage.getInfoSection().clickOnButtonCompareTrim();
         CompareTrimPage compareTrimPage = new CompareTrimPage();
         Assert.assertTrue(compareTrimPage.getTrimCard().isDisplPanelEngine(), "Page compare trim not found");
         car.setEngine(compareTrimPage.getTrimCard().getTextPanelEngine());
-        car.setTrans(compareTrimPage.getTrimCard().getTextPanelTrans());
+        car.setTransmission(compareTrimPage.getTrimCard().getTextPanelTrans());
         return car;
+    }
+
+    private void assertCarParameters(String carParameterFromPage, String carParameter, String nameCarParameter) {
+        Assert.assertTrue(carParameterFromPage.contains(carParameter), nameCarParameter + " not match");
     }
 }

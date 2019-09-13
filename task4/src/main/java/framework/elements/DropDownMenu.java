@@ -1,23 +1,20 @@
 package framework.elements;
 
-import framework.utils.MyLogger;
-import framework.utils.RandomElements;
-import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import org.openqa.selenium.By;
 
 public class DropDownMenu extends BaseElement {
-    public DropDownMenu(String locator, String nameElement) {
+    public DropDownMenu(By locator, String nameElement) {
         super(locator, nameElement);
     }
 
-    public void clickRandom(int random) {
-        getElements().get(random).click();
+    public void clickSelectElement(int selectNumber) {
+//        Select select = new Select(getElement());
+//        select.selectByIndex(selectNumber);
+
+        getElements().get(selectNumber).click();
     }
 
-    public String getTextRandom(int random) {
-        return getElements().get(random).getText();
+    public String getTextSelectElement(int selectNumber) {
+        return getElements().get(selectNumber).getText();
     }
 }

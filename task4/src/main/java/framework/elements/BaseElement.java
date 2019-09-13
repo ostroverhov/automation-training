@@ -2,7 +2,6 @@ package framework.elements;
 
 import framework.browser.BrowserFactory;
 import framework.utils.MyLogger;
-import framework.utils.RandomElements;
 import framework.utils.Reader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,41 +10,47 @@ import java.util.List;
 
 public abstract class BaseElement {
     private String nameElement;
-    private String locator;
+    private By locator;
 
-    public BaseElement(String locator, String nameElement) {
-        MyLogger.info("  create element " + nameElement);
+    public BaseElement(By locator, String nameElement) {
+        MyLogger.info("create element " + nameElement);
         this.nameElement = nameElement;
         this.locator = locator;
     }
 
     public WebElement getElement() {
-        MyLogger.info("  get element " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator));
+        MyLogger.info("get element " + nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(locator);
     }
 
     public List<WebElement> getElements() {
-        MyLogger.info("  get elements " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(By.xpath(locator));
+        MyLogger.info("get elements " + nameElement);
+        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(locator);
     }
 
     public boolean isDisplayedElement() {
-        MyLogger.info("  element is displayed " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).isDisplayed();
+        MyLogger.info("element is displayed " + nameElement);
+        return getElement().isDisplayed();
     }
 
     public boolean isPresent() {
-        MyLogger.info("  element is present " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(By.xpath(locator)).size() > 0;
+        MyLogger.info("element is present " + nameElement);
+        return getElements().size() > 0;
     }
 
     public void clickElement() {
-        MyLogger.info("  click on element " + nameElement);
-        BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).click();
+        MyLogger.info("click on element " + nameElement);
+        getElement().click();
     }
 
     public String getTextFromElement() {
-        MyLogger.info("  get text from element " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(By.xpath(locator)).getText();
+        MyLogger.info("get text from element " + nameElement);
+        return getElement().getText();
     }
+
+    public String getTextFromEl() {
+        MyLogger.info("get text from element " + nameElement);
+        return getElement().getText();
+    }
+
 }

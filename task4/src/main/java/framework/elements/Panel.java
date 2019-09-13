@@ -1,7 +1,9 @@
 package framework.elements;
 
+import org.openqa.selenium.By;
+
 public class Panel extends BaseElement {
-    public Panel(String locator, String nameElement) {
+    public Panel(By locator, String nameElement) {
         super(locator, nameElement);
     }
 }

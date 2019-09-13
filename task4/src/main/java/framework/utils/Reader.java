@@ -14,8 +14,7 @@ public class Reader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String parametrFromProperties = property.getProperty(parametr);
-        return parametrFromProperties;
+        return property.getProperty(parametr);
     }
 
     public static String getNameDownloadFile() {

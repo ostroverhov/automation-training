@@ -1,7 +1,9 @@
 package framework.elements;
 
+import org.openqa.selenium.By;
+
 public class SubMenu extends BaseElement {
-    public SubMenu(String locator, String nameElement) {
+    public SubMenu(By locator, String nameElement) {
         super(locator, nameElement);
     }
 }

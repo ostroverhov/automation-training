@@ -2,31 +2,24 @@ package app.form;
 
 import framework.elements.Button;
 import framework.elements.DropDownMenu;
+import org.openqa.selenium.By;
 
 public class CompareForm {
     private String locate = " on CompareForm";
-    private String dropDownMakeLocator = "//select[@id='make-dropdown']//option[contains(text(),'%s')]";
-    private String dropDownModelLocator = "//select[@id='model-dropdown']//option[contains(text(),'%s')]";
-    private String dropDownYearLocator = "//select[@id='year-dropdown']//option[contains(text(),'%s')]";
-    private String buttonStartCompareLocator = "//button[@class='done-button']";
-    private String buttonDoneLocator = "//button[@class='modal-button']";
 
-    private Button buttonStartCompare = new Button(buttonStartCompareLocator, "button start compare" + locate);
+    private Button buttonStartCompare = new Button(By.xpath("//button[@class='done-button']"), "button start compare" + locate);
+    private Button buttonDone = new Button(By.xpath("//button[@class='modal-button']"), "button done" + locate);
 
     private DropDownMenu getDropDownMake(String make) {
-        return new DropDownMenu(String.format(dropDownMakeLocator, make), "dropDownMenu of Maker" + locate);
+        return new DropDownMenu(By.xpath(String.format("//select[@id='make-dropdown']//option[contains(text(),'%s')]", make)), "dropDownMenu of Maker" + locate);
     }
 
     private DropDownMenu getDropDownModel(String model) {
-        return new DropDownMenu(String.format(dropDownModelLocator, model), "dropDownMenu of model" + locate);
+        return new DropDownMenu(By.xpath(String.format("//select[@id='model-dropdown']//option[contains(text(),'%s')]", model)), "dropDownMenu of model" + locate);
     }
 
     private DropDownMenu getDropDownYear(String year) {
-        return new DropDownMenu(String.format(dropDownYearLocator, year), "dropDownMenu of year" + locate);
-    }
-
-    private Button getButtonDone() {
-        return new Button(buttonDoneLocator, "button done" + locate);
+        return new DropDownMenu(By.xpath(String.format("//select[@id='year-dropdown']//option[contains(text(),'%s')]", year)), "dropDownMenu of year" + locate);
     }
 
     public void clickMake(String make) {
@@ -50,6 +43,6 @@ public class CompareForm {
     }
 
     public void clickButtonDone() {
-        getButtonDone().clickElement();
+        buttonDone.clickElement();
     }
 }

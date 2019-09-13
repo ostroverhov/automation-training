@@ -1,29 +1,27 @@
 package app.form;
 
 import framework.elements.Button;
+import org.openqa.selenium.By;
 
 public class TopMenu {
     private String locate = " on TopMenu";
-    private String buttonTopMenuMainPageLocator = "//ul[@class='_1U4gk']//a[@class='_2Qal_'][contains(text(), '%s')]";
-    private String buttonTopMenuLocator = "//ul[@class='global-nav__parent']//a[@class='global-nav__link'][contains(text(),'%s')]";
-    private String buttonLogoMainPageLocator = "//a[@class='_3WG8F _3xBVO']";
 
-    private Button buttonLogoMainPage = new Button(buttonLogoMainPageLocator, "buttonLogo" + locate);
+    private Button buttonLogoMainPage = new Button(By.xpath("//a[@class='_3WG8F _3xBVO']"), "buttonLogo" + locate);
 
     private Button getButtonTopMenuMainPage(String nameButton) {
-        return new Button(String.format(buttonTopMenuMainPageLocator, nameButton), nameButton + " button" + locate);
+        return new Button(By.xpath(String.format("//ul[@class='_1U4gk']//a[@class='_2Qal_'][contains(text(), '%s')]", nameButton)), nameButton + " button" + locate);
     }
 
     private Button getButtonTopMenu(String nameButton) {
-        return new Button(String.format(buttonTopMenuLocator, nameButton), nameButton + " button" + locate);
+        return new Button(By.xpath(String.format("//ul[@class='global-nav__parent']//a[@class='global-nav__link'][contains(text(),'%s')]", nameButton)), nameButton + " button" + locate);
     }
 
-    public void clickOnButtonTopMenuMain(String nameButton) {
-        getButtonTopMenuMainPage(nameButton).clickElement();
+    public void clickOnButtonTopMenuMain(MenuHeaderItem nameButton) {
+        getButtonTopMenuMainPage(nameButton.getMenuItem()).clickElement();
     }
 
-    public void clickOnButtonTopMenu(String nameButton) {
-        getButtonTopMenu(nameButton).clickElement();
+    public void clickOnButtonTopMenu(MenuHeaderItem nameButton) {
+        getButtonTopMenu(nameButton.getMenuItem()).clickElement();
     }
 
     public boolean isDisplButtonLogoMainPage() {

@@ -10,8 +10,8 @@ public class MyLogger {
         logger.info("Step: " + message);
     }
 
-    public static void info(String message){
-        logger.info("Info: " + message);
+    public static void info(String message) {
+        logger.info("Info:   " + message);
     }
 
     public static void warn(String message) {
