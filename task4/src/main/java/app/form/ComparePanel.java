@@ -2,8 +2,9 @@ package app.form;
 
 import framework.elements.Button;
 import framework.elements.Panel;
-import framework.utils.Wait;
 import org.openqa.selenium.By;
+
+import static framework.elements.BaseElement.waitElementToBeClickable;
 
 public class ComparePanel {
     private String locate = " on Compare Form";
@@ -21,7 +22,7 @@ public class ComparePanel {
     }
 
     public boolean isDisplayedButtonAddAnotherCar() {
-        return Wait.waitElementToBeClickable(buttonAddAnotherCar.getElement()).isDisplayed();
+        return waitElementToBeClickable(buttonAddAnotherCar.getElement()).isDisplayed();
     }
 
     public String getTextFromPanelFirstCar() {

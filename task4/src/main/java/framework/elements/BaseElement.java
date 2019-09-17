@@ -5,6 +5,8 @@ import framework.utils.MyLogger;
 import framework.utils.Reader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -26,6 +28,11 @@ public abstract class BaseElement {
     public List<WebElement> getElements() {
         MyLogger.info("get elements " + nameElement);
         return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(locator);
+    }
+
+    public static WebElement waitElementToBeClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(BrowserFactory.getInstance(Reader.getParametr("browser")), Integer.parseInt(Reader.getParametr("timeout")));
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public boolean isDisplayedElement() {

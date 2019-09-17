@@ -18,9 +18,6 @@ public class BrowserSettings {
         chromePrefs.put("intl.accept_languages", Reader.getParametr("locale"));
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", chromePrefs);
-//        DesiredCapabilities cap = DesiredCapabilities.chrome();
-//        cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-//        cap.setCapability(ChromeOptions.CAPABILITY, options);
         return options;
     }
 
