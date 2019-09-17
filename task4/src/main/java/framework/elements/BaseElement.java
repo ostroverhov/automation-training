@@ -54,10 +54,4 @@ public abstract class BaseElement {
         MyLogger.info("get text from element " + nameElement);
         return getElement().getText();
     }
-
-    public String getTextFromEl() {
-        MyLogger.info("get text from element " + nameElement);
-        return getElement().getText();
-    }
-
 }

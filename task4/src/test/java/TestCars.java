@@ -1,9 +1,8 @@
+import app.form.CompareForm;
+import app.form.ComparePanel;
 import app.form.TrimCard;
 import app.models.Car;
-import app.pages.CarPage;
-import app.pages.CompareTrimPage;
-import app.pages.MainPage;
-import app.pages.ResearchPage;
+import app.pages.*;
 import framework.browser.BrowserFactory;
 import framework.utils.MyLogger;
 import org.testng.Assert;
@@ -31,50 +30,46 @@ public class TestCars extends BaseTest {
         MyLogger.step("Create second car");
         Car secondCar = addCar();
 
-//        MyLogger.step("Go to research page");
-//        CompareTrimPage compareTrimPage = new CompareTrimPage();
-//        compareTrimPage.getTopMenu().clickOnButtonTopMenu(RESEARCH);
-//        ResearchPage researchPage = new ResearchPage();
-//        Assert.assertTrue(researchPage.getToolsForm().isDisplToolsForm(), "Page research not found");
-//
-//        MyLogger.step("Click side-by-side comparisons");
-//        researchPage.getToolsForm().clickOnButtonToolsForm("Side-by-side Comparisons");
-//        CompareSideBySideCarsPage compareSideBySideCarsPage = new CompareSideBySideCarsPage();
-//        CompareForm compareForm = compareSideBySideCarsPage.getCompareForm();
-//        Assert.assertTrue(compareForm.isDisplayedButtonStartCompare(), "Page side-by-side comparisons not found");
-//
-//        MyLogger.step("Select first car and go to model compare page");
-//        compareForm.selectCar(firstCar.getMake(), firstCar.getModel(), firstCar.getYear());
-////        compareForm.clickModel(firstCar.getModel());
-////        compareForm.clickYear(firstCar.getYear());
-//        compareForm.clickButtonStartCompare();
-//        ModelComparePage modelComparePage = new ModelComparePage();
-//        ComparePanel comparePanel = modelComparePage.getComparePanel();
-//        Assert.assertTrue(comparePanel.isDisplayedButtonAddAnotherCar(), "Model compare page not found");
-//
-//        String textFromPanelFirstCar = comparePanel.getTextFromPanelFirstCar();
-//        assertCarParameters(textFromPanelFirstCar, firstCar.getMake(), "make");
-//        assertCarParameters(textFromPanelFirstCar, firstCar.getModel(), "model");
-//        assertCarParameters(textFromPanelFirstCar, firstCar.getYear(), "year");
-//
-//        MyLogger.step("Add second car to model compare page");
-//        comparePanel.clickOnButtonAddAnotherCar();
-//        CompareForm compareFormFromModelComparePage = modelComparePage.getCompareForm();
-//        compareFormFromModelComparePage.selectCar(secondCar.getMake(), secondCar.getModel(), secondCar.getYear());
-////        compareFormFromModelComparePage.clickModel(secondCar.getModel());
-////        compareFormFromModelComparePage.clickYear(secondCar.getYear());
-//        compareFormFromModelComparePage.clickButtonDone();
-//
-//        String textFromPanelSecondCar = comparePanel.getTextFromPanelSecondCar();
-//        assertCarParameters(textFromPanelSecondCar, secondCar.getMake(), "make");
-//        assertCarParameters(textFromPanelSecondCar, secondCar.getModel(), "model");
-//        assertCarParameters(textFromPanelSecondCar, secondCar.getYear(), "year");
-//
-//        MyLogger.step("Compare engine and transmission of cars");
-//        assertCarParameters(comparePanel.getTextFromPanelFirstCarEngine(), firstCar.getEngine(), "engine first car");
-//        assertCarParameters(comparePanel.getTextFromPanelSecondCarEngine(), secondCar.getEngine(),    "engine second car");
-//        assertCarParameters(comparePanel.getTextFromPanelFirstCarTrans(), firstCar.getTransmission(),  "trans first car");
-//        assertCarParameters(comparePanel.getTextFromPanelSecondCarTrans(), secondCar.getTransmission(), "trans second car");
+        MyLogger.step("Go to research page");
+        CompareTrimPage compareTrimPage = new CompareTrimPage();
+        compareTrimPage.getTopMenu().clickOnButtonTopMenu(RESEARCH);
+        ResearchPage researchPage = new ResearchPage();
+        Assert.assertTrue(researchPage.getToolsForm().isDisplToolsForm(), "Page research not found");
+
+        MyLogger.step("Click side-by-side comparisons");
+        researchPage.getToolsForm().clickOnButtonToolsForm("Side-by-side Comparisons");
+        CompareSideBySideCarsPage compareSideBySideCarsPage = new CompareSideBySideCarsPage();
+        CompareForm compareForm = compareSideBySideCarsPage.getCompareForm();
+        Assert.assertTrue(compareForm.isDisplayedButtonStartCompare(), "Page side-by-side comparisons not found");
+
+        MyLogger.step("Select first car and go to model compare page");
+        compareForm.selectCar(firstCar.getMake(), firstCar.getModel(), firstCar.getYear());
+        compareForm.clickButtonStartCompare();
+        ModelComparePage modelComparePage = new ModelComparePage();
+        ComparePanel comparePanel = modelComparePage.getComparePanel();
+        Assert.assertTrue(comparePanel.isDisplayedButtonAddAnotherCar(), "Model compare page not found");
+
+        String textFromPanelFirstCar = comparePanel.getTextFromPanelFirstCar();
+        assertCarParameters(textFromPanelFirstCar, firstCar.getMake(), "make");
+        assertCarParameters(textFromPanelFirstCar, firstCar.getModel(), "model");
+        assertCarParameters(textFromPanelFirstCar, firstCar.getYear(), "year");
+
+        MyLogger.step("Add second car to model compare page");
+        comparePanel.clickOnButtonAddAnotherCar();
+        CompareForm compareFormFromModelComparePage = modelComparePage.getCompareForm();
+        compareFormFromModelComparePage.selectCar(secondCar.getMake(), secondCar.getModel(), secondCar.getYear());
+        compareFormFromModelComparePage.clickButtonDone();
+
+        String textFromPanelSecondCar = comparePanel.getTextFromPanelSecondCar();
+        assertCarParameters(textFromPanelSecondCar, secondCar.getMake(), "make");
+        assertCarParameters(textFromPanelSecondCar, secondCar.getModel(), "model");
+        assertCarParameters(textFromPanelSecondCar, secondCar.getYear(), "year");
+
+        MyLogger.step("Compare engine and transmission of cars");
+        assertCarParameters(comparePanel.getTextFromPanelFirstCarEngine(), firstCar.getEngine(), "engine first car");
+        assertCarParameters(comparePanel.getTextFromPanelSecondCarEngine(), secondCar.getEngine(), "engine second car");
+        assertCarParameters(comparePanel.getTextFromPanelFirstCarTransmission(), firstCar.getTransmission(), "trans first car");
+        assertCarParameters(comparePanel.getTextFromPanelSecondCarTransmission(), secondCar.getTransmission(), "trans second car");
     }
 
     private Car addCar() {

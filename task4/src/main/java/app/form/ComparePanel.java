@@ -14,8 +14,8 @@ public class ComparePanel {
     private Panel panelSecondCar = new Panel(By.xpath("//cars-compare-compare-info[@format='research-car-mmyt']//span[2]"), "panel second car" + locate);
     private Panel panelFirstCarEngine = new Panel(By.xpath("//cars-compare-compare-info[@header='Engine']//span[1]"), "panel first car engine" + locate);
     private Panel panelSecondCarEngine = new Panel(By.xpath("//cars-compare-compare-info[@header='Engine']//span[2]"), "panel second car engine" + locate);
-    private Panel panelFirstCarTrans = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[1]"), "panel first car trans" + locate);
-    private Panel panelSecondCarTrans = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[2]"), "panel second car trans" + locate);
+    private Panel panelFirstCarTransmission = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[1]"), "panel first car trans" + locate);
+    private Panel panelSecondCarTransmission = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[2]"), "panel second car trans" + locate);
 
     public void clickOnButtonAddAnotherCar() {
         buttonAddAnotherCar.clickElement();
@@ -41,12 +41,12 @@ public class ComparePanel {
         return panelSecondCarEngine.getTextFromElement();
     }
 
-    public String getTextFromPanelFirstCarTrans() {
-        return panelFirstCarTrans.getTextFromElement();
+    public String getTextFromPanelFirstCarTransmission() {
+        return panelFirstCarTransmission.getTextFromElement();
     }
 
-    public String getTextFromPanelSecondCarTrans() {
-        return panelSecondCarTrans.getTextFromElement();
+    public String getTextFromPanelSecondCarTransmission() {
+        return panelSecondCarTransmission.getTextFromElement();
     }
 
 }

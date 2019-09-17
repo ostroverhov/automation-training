@@ -14,7 +14,7 @@ public class DropDownMenu extends BaseElement {
 
     public String getRandomElement() {
         Select select = new Select(getElement());
-        List<WebElement> dropDownElements = select.getAllSelectedOptions();
+        List<WebElement> dropDownElements = select.getOptions();
         int random = RandomElements.getRandom(dropDownElements.size());
         return dropDownElements.get(random).getText();
     }
@@ -22,11 +22,5 @@ public class DropDownMenu extends BaseElement {
     public void clickSelectElement(String selectElement) {
         Select select = new Select(getElement());
         select.selectByVisibleText(selectElement);
-
-//        getElements().get(selectNumber).click();
     }
-
-//    public String getTextSelectElement(int selectNumber) {
-//        return getElements().get(selectNumber).getText();
-//    }
 }
