@@ -104,7 +104,7 @@ public class TestCars extends BaseTest {
     }
 
     private void assertPage(BasePage page) {
-        Assert.assertTrue(page.IsPage(), page.getNamePage() + " not found");
+        Assert.assertTrue(page.isPage(), page.getNamePage() + " not found");
     }
 
     private void assertMakeModelYear(String textPanel, Car car) {

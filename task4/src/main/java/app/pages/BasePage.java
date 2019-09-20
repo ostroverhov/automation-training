@@ -16,7 +16,7 @@ public abstract class BasePage {
         this.locator = locator;
     }
 
-    public boolean IsPage() {
+    public boolean isPage() {
         return waitElementToBeClickable(BrowserFactory.getInstance().findElement(locator)).isDisplayed();
     }
 
