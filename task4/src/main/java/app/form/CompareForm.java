@@ -6,8 +6,9 @@ import framework.elements.DropDownMenu;
 import org.openqa.selenium.By;
 
 public class CompareForm extends BasePage {
+    private static By buttonStartCompareLocator = By.xpath("//button[@class='done-button']");
 
-    private Button buttonStartCompare = new Button(By.xpath("//button[@class='done-button']"), getFullElementName("button start compare"));
+    private Button buttonStartCompare = new Button(buttonStartCompareLocator, getFullElementName("button start compare"));
     private Button buttonDone = new Button(By.xpath("//button[@class='modal-button']"), getFullElementName("button done"));
 
     private DropDownMenu dropDownMake = new DropDownMenu(By.id("make-dropdown"), getFullElementName("dropDownMenu of Maker"));
@@ -15,7 +16,7 @@ public class CompareForm extends BasePage {
     private DropDownMenu dropDownYear = new DropDownMenu(By.id("year-dropdown"), getFullElementName("dropDownMenu of year"));
 
     public CompareForm() {
-        super("Compare form", By.xpath("//button[@class='done-button']"));
+        super("Compare form", buttonStartCompareLocator);
     }
 
     public void selectCar(String make, String model, String year) {

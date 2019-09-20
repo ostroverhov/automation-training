@@ -22,12 +22,9 @@ public class ResearchForm extends BasePage {
 
     public Car selectRandomCar() {
         Car car = new Car();
-        String make = dropDownMake.getRandomElement();
-        car.setMake(make);
-        String model = dropDownModel.getRandomElement();
-        car.setModel(model);
-        String year = dropDownYear.getRandomElement();
-        car.setYear(year);
+        car.setMake(dropDownMake.getRandomElement());
+        car.setModel(dropDownModel.getRandomElement());
+        car.setYear(dropDownYear.getRandomElement());
         return car;
     }
 }

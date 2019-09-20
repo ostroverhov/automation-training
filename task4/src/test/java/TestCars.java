@@ -49,8 +49,7 @@ public class TestCars extends BaseTest {
         ComparePanel comparePanel = modelComparePage.getComparePanel();
         assertPage(modelComparePage);
 
-        String textFromPanelFirstCar = comparePanel.getTextFromPanelFirstCar();
-        assertMakeModelYear(textFromPanelFirstCar, firstCar);
+        assertMakeModelYear(comparePanel.getTextFromPanelFirstCar(), firstCar);
 
         MyLogger.step("Add second car to model compare page");
         comparePanel.clickOnButtonAddAnotherCar();
@@ -58,8 +57,7 @@ public class TestCars extends BaseTest {
         compareFormFromModelComparePage.selectCar(secondCar.getMake(), secondCar.getModel(), secondCar.getYear());
         compareFormFromModelComparePage.clickButtonDone();
 
-        String textFromPanelSecondCar = comparePanel.getTextFromPanelSecondCar();
-        assertMakeModelYear(textFromPanelSecondCar, secondCar);
+        assertMakeModelYear(comparePanel.getTextFromPanelSecondCar(), secondCar);
 
         MyLogger.step("Compare engine and transmission of cars");
         assertCarParameters(comparePanel.getTextFromPanelFirstCarEngine(), firstCar.getEngine(), "engine first car");
@@ -89,8 +87,7 @@ public class TestCars extends BaseTest {
                 break;
             }
         }
-        String textPanelInfoCar = carPage.getInfoSection().getTextPanelInfoCar();
-        assertMakeModelYear(textPanelInfoCar, car);
+        assertMakeModelYear(carPage.getInfoSection().getTextPanelInfoCar(), car);
 
         MyLogger.step("Go to page compare trim");
         carPage.getInfoSection().clickOnButtonCompareTrim();
@@ -107,7 +104,7 @@ public class TestCars extends BaseTest {
     }
 
     private void assertPage(BasePage page) {
-        Assert.assertTrue(page.checkPage(), page.getNamePage() + " not found");
+        Assert.assertTrue(page.IsPage(), page.getNamePage() + " not found");
     }
 
     private void assertMakeModelYear(String textPanel, Car car) {

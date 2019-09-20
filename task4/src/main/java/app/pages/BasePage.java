@@ -16,7 +16,7 @@ public abstract class BasePage {
         this.locator = locator;
     }
 
-    public boolean checkPage() {
+    public boolean IsPage() {
         return waitElementToBeClickable(BrowserFactory.getInstance().findElement(locator)).isDisplayed();
     }
 
@@ -25,7 +25,7 @@ public abstract class BasePage {
     }
 
     public String getFullElementName(String nameElement) {
-        return nameElement + " " + getNamePage();
+        return nameElement + " " + namePage;
     }
 
     public static WebElement waitElementToBeClickable(WebElement element) {
