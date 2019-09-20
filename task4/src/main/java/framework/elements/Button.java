@@ -6,4 +6,5 @@ public class Button extends BaseElement {
     public Button(By locator, String nameElement) {
         super(locator, nameElement);
     }
+
 }

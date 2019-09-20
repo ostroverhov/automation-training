@@ -12,15 +12,18 @@ public class DropDownMenu extends BaseElement {
         super(locator, nameElement);
     }
 
+    private Select getSelect() {
+        return new Select(getElement());
+    }
+
     public String getRandomElement() {
-        Select select = new Select(getElement());
-        List<WebElement> dropDownElements = select.getOptions();
+        List<WebElement> dropDownElements = getSelect().getOptions();
         int random = RandomElements.getRandom(dropDownElements.size());
+        getSelect().selectByVisibleText(dropDownElements.get(random).getText());
         return dropDownElements.get(random).getText();
     }
 
     public void clickSelectElement(String selectElement) {
-        Select select = new Select(getElement());
-        select.selectByVisibleText(selectElement);
+        getSelect().selectByVisibleText(selectElement);
     }
 }

@@ -1,17 +1,20 @@
 package app.form;
 
 import app.models.Car;
+import app.pages.BasePage;
 import framework.elements.Button;
 import framework.elements.DropDownMenu;
 import org.openqa.selenium.By;
 
-public class ResearchForm {
-    private String locate = " on ResearchForm";
+public class ResearchForm extends BasePage {
+    private DropDownMenu dropDownMake = new DropDownMenu(By.xpath("//select[@class='_2jV43 _1vzbb']"), getFullElementName("dropDownMenu of Maker"));
+    private DropDownMenu dropDownModel = new DropDownMenu(By.xpath("//select[@class='_2jV43 _1AnAd']"), getFullElementName("dropDownMenu of model"));
+    private DropDownMenu dropDownYear = new DropDownMenu(By.xpath("//select[@class='_2jV43 ZM4eE']"), getFullElementName("dropDownMenu of year"));
+    private Button buttonResearch = new Button(By.xpath("//input[@class='_3iP3L']"), getFullElementName("button research"));
 
-    private DropDownMenu dropDownMake = new DropDownMenu(By.xpath("//select[@class='_2jV43 _1vzbb']"), "dropDownMenu of Maker" + locate);//todo change locators
-    private DropDownMenu dropDownModel = new DropDownMenu(By.xpath("//select[@class='_2jV43 _1AnAd']"), "dropDownMenu of model" + locate);
-    private DropDownMenu dropDownYear = new DropDownMenu(By.xpath("//select[@class='_2jV43 ZM4eE']"), "dropDownMenu of year" + locate);
-    private Button buttonResearch = new Button(By.xpath("//input[@class='_3iP3L']"), "button research" + locate);
+    public ResearchForm() {
+        super("Research form", By.xpath("//input[@class='_3iP3L']"));
+    }
 
     public void clickButtonResearch() {
         buttonResearch.clickElement();
@@ -20,13 +23,10 @@ public class ResearchForm {
     public Car selectRandomCar() {
         Car car = new Car();
         String make = dropDownMake.getRandomElement();
-        dropDownMake.clickSelectElement(make);
         car.setMake(make);
         String model = dropDownModel.getRandomElement();
-        dropDownModel.clickSelectElement(model);
         car.setModel(model);
         String year = dropDownYear.getRandomElement();
-        dropDownYear.clickSelectElement(year);
         car.setYear(year);
         return car;
     }

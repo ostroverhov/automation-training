@@ -1,18 +1,22 @@
 package app.form;
 
+import app.pages.BasePage;
 import framework.elements.Button;
 import framework.elements.DropDownMenu;
 import org.openqa.selenium.By;
 
-public class CompareForm {
-    private String locate = " on CompareForm";
+public class CompareForm extends BasePage {
 
-    private Button buttonStartCompare = new Button(By.xpath("//button[@class='done-button']"), "button start compare" + locate);
-    private Button buttonDone = new Button(By.xpath("//button[@class='modal-button']"), "button done" + locate);
+    private Button buttonStartCompare = new Button(By.xpath("//button[@class='done-button']"), getFullElementName("button start compare"));
+    private Button buttonDone = new Button(By.xpath("//button[@class='modal-button']"), getFullElementName("button done"));
 
-    private DropDownMenu dropDownMake = new DropDownMenu(By.xpath("//select[@id='make-dropdown']"), "dropDownMenu of Maker" + locate);
-    private DropDownMenu dropDownModel = new DropDownMenu(By.xpath("//select[@id='model-dropdown']"), "dropDownMenu of model" + locate);
-    private DropDownMenu dropDownYear = new DropDownMenu(By.xpath("//select[@id='year-dropdown']"), "dropDownMenu of year" + locate);
+    private DropDownMenu dropDownMake = new DropDownMenu(By.id("make-dropdown"), getFullElementName("dropDownMenu of Maker"));
+    private DropDownMenu dropDownModel = new DropDownMenu(By.id("model-dropdown"), getFullElementName("dropDownMenu of model"));
+    private DropDownMenu dropDownYear = new DropDownMenu(By.id("year-dropdown"), getFullElementName("dropDownMenu of year"));
+
+    public CompareForm() {
+        super("Compare form", By.xpath("//button[@class='done-button']"));
+    }
 
     public void selectCar(String make, String model, String year) {
         dropDownMake.clickSelectElement(make);
@@ -22,10 +26,6 @@ public class CompareForm {
 
     public void clickButtonStartCompare() {
         buttonStartCompare.clickElement();
-    }
-
-    public boolean isDisplayedButtonStartCompare() {
-        return buttonStartCompare.isDisplayedElement();
     }
 
     public void clickButtonDone() {

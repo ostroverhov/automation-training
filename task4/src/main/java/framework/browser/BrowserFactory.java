@@ -15,10 +15,10 @@ public class BrowserFactory {
     private BrowserFactory() {
     }
 
-    public static WebDriver getInstance(String browser) throws IllegalBrowserNameException {
+    public static WebDriver getInstance() throws IllegalBrowserNameException {
         if (driver == null) {
-            MyLogger.info("driver init " + browser);
-            switch (browser) {
+            MyLogger.info("driver init");
+            switch (Reader.getParametr("browser")) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(BrowserSettings.chromeSettings());
@@ -44,7 +44,7 @@ public class BrowserFactory {
     }
 
     public static void setImplicityWait(int timeout) {
-        getInstance(Reader.getParametr("browser")).manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+        getInstance().manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }
 
     public static void setMaxSizeWindow() {

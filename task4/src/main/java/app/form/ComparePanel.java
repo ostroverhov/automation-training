@@ -1,28 +1,29 @@
 package app.form;
 
+import app.pages.BasePage;
 import framework.elements.Button;
 import framework.elements.Panel;
 import org.openqa.selenium.By;
 
-import static framework.elements.BaseElement.waitElementToBeClickable;
+public class ComparePanel extends BasePage {
+    private String panelCarLocator = "//cars-compare-compare-info[@format='research-car-mmyt']//span[%s]";
+    private String panelCarEngineLocator = "//cars-compare-compare-info[@header='Engine']//span[%s]";
+    private String panelCarTransmissionLocator = "//cars-compare-compare-info[@header='Transmission']//span[%s]";
 
-public class ComparePanel {
-    private String locate = " on Compare Form";
+    private Button buttonAddAnotherCar = new Button(By.xpath("//div[@id='icon-div']"), getFullElementName("button"));
+    private Panel panelFirstCar = new Panel(By.xpath(String.format(panelCarLocator, "1")), getFullElementName("panel first car"));
+    private Panel panelSecondCar = new Panel(By.xpath(String.format(panelCarLocator, "2")), getFullElementName("panel second car"));
+    private Panel panelFirstCarEngine = new Panel(By.xpath(String.format(panelCarEngineLocator, "1")), getFullElementName("panel first car engine"));
+    private Panel panelSecondCarEngine = new Panel(By.xpath(String.format(panelCarEngineLocator, "2")), getFullElementName("panel second car engine"));
+    private Panel panelFirstCarTransmission = new Panel(By.xpath(String.format(panelCarTransmissionLocator, "1")), getFullElementName("panel first car trans"));
+    private Panel panelSecondCarTransmission = new Panel(By.xpath(String.format(panelCarTransmissionLocator, "2")), getFullElementName("panel second car trans"));
 
-    private Button buttonAddAnotherCar = new Button(By.xpath("//div[@id='icon-div']"), " button" + locate);
-    private Panel panelFirstCar = new Panel(By.xpath("//cars-compare-compare-info[@format='research-car-mmyt']//span[1]"), "panel first car" + locate);
-    private Panel panelSecondCar = new Panel(By.xpath("//cars-compare-compare-info[@format='research-car-mmyt']//span[2]"), "panel second car" + locate);
-    private Panel panelFirstCarEngine = new Panel(By.xpath("//cars-compare-compare-info[@header='Engine']//span[1]"), "panel first car engine" + locate);
-    private Panel panelSecondCarEngine = new Panel(By.xpath("//cars-compare-compare-info[@header='Engine']//span[2]"), "panel second car engine" + locate);
-    private Panel panelFirstCarTransmission = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[1]"), "panel first car trans" + locate);
-    private Panel panelSecondCarTransmission = new Panel(By.xpath("//cars-compare-compare-info[@header='Transmission']//span[2]"), "panel second car trans" + locate);
+    public ComparePanel() {
+        super("Compare panel", By.xpath("//div[@id='icon-div']"));
+    }
 
     public void clickOnButtonAddAnotherCar() {
         buttonAddAnotherCar.clickElement();
-    }
-
-    public boolean isDisplayedButtonAddAnotherCar() {
-        return waitElementToBeClickable(buttonAddAnotherCar.getElement()).isDisplayed();
     }
 
     public String getTextFromPanelFirstCar() {
@@ -48,5 +49,4 @@ public class ComparePanel {
     public String getTextFromPanelSecondCarTransmission() {
         return panelSecondCarTransmission.getTextFromElement();
     }
-
 }

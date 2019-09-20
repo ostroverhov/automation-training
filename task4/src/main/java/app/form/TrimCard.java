@@ -1,20 +1,19 @@
 package app.form;
 
+import app.pages.BasePage;
 import framework.elements.Panel;
 import org.openqa.selenium.By;
 
-public class TrimCard {
-    private String locate = " on TrimCard";
+public class TrimCard extends BasePage {
+    private Panel panelEngine = new Panel(By.xpath("//div[contains(@class,'cell cell-bg grow-2')]"), getFullElementName("panelEngine"));
+    private Panel panelTrans = new Panel(By.xpath("//div[contains(@class,'cell grow-2')]"), getFullElementName("panelTrans"));
 
-    private Panel panelEngine = new Panel(By.xpath("//div[contains(@class,'cell cell-bg grow-2')]"), "panelEngine" + locate);
-    private Panel panelTrans = new Panel(By.xpath("//div[contains(@class,'cell grow-2')]"), "panelTrans" + locate);
+    public TrimCard() {
+        super("Trim card", By.xpath("//div[contains(@class,'cell cell-bg grow-2')]"));
+    }
 
     public String getTextPanelEngine() {
         return panelEngine.getTextFromElement();
-    }
-
-    public boolean isDisplPanelEngine() {
-        return panelEngine.isDisplayedElement();
     }
 
     public String getTextPanelTrans() {

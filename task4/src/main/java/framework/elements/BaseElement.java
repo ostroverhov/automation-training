@@ -22,16 +22,16 @@ public abstract class BaseElement {
 
     public WebElement getElement() {
         MyLogger.info("get element " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElement(locator);
+        return BrowserFactory.getInstance().findElement(locator);
     }
 
     public List<WebElement> getElements() {
         MyLogger.info("get elements " + nameElement);
-        return BrowserFactory.getInstance(Reader.getParametr("browser")).findElements(locator);
+        return BrowserFactory.getInstance().findElements(locator);
     }
 
     public static WebElement waitElementToBeClickable(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(BrowserFactory.getInstance(Reader.getParametr("browser")), Integer.parseInt(Reader.getParametr("timeout")));
+        WebDriverWait wait = new WebDriverWait(BrowserFactory.getInstance(), Integer.parseInt(Reader.getParametr("timeout")));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
